@@ -40,6 +40,9 @@
     "url": "https://github.com/amol9patil/playwright-bdd-framework/issues"
   },
   "homepage": "https://github.com/amol9patil/playwright-bdd-framework#readme",
+  "overrides": {
+    "minimatch": "^11.0.5"
+  },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.65.0",
