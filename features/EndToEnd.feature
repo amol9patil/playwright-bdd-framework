@@ -21,6 +21,7 @@ Feature: End-to-end purchase journey
     When the user finishes the order
     Then the order confirmation says "Thank you for your order!"
     When the user returns to the product list
-    Then the cart badge is not shown
+    Then the inventory page is displayed
+    And the cart badge is not shown
     When the user logs out
     Then the login page is displayed
