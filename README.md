@@ -1,9 +1,15 @@
 # Playwright + TypeScript + BDD Framework
 
+<<<<<<< Updated upstream
 [![Playwright Tests](https://github.com/amol9patil/playwright-bdd-framework/actions/workflows/playwright.yml/badge.svg)](https://github.com/amol9patil/playwright-bdd-framework/actions/workflows/playwright.yml)
 
 ![Node](https://img.shields.io/badge/node-%3E%3D20-339933)
 ![License](https://img.shields.io/badge/license-MIT-blue)
+=======
+
+[![Playwright Tests](https://github.com/amol9patil/playwright-bdd-framework/actions/workflows/playwright.yml/badge.svg)](https://github.com/amol9patil/playwright-bdd-framework/actions/workflows/playwright.yml)![Node](https://img.shields.io/badge/node-%3E%3D20-339933)![License](https://img.shields.io/badge/license-MIT-blue)
+
+> > > > > > > Stashed changes
 
 This is the framework structure I like to start with when I set up UI automation from scratch:
 Playwright and TypeScript, Gherkin scenarios through [playwright-bdd](https://github.com/vitalets/playwright-bdd),
