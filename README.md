@@ -1,6 +1,7 @@
 # Playwright + TypeScript + BDD Framework
 
-[![Playwright Tests](https://github.com/amol9patil/<repo-name>/actions/workflows/playwright.yml/badge.svg)](https://github.com/amol9patil/<repo-name>/actions/workflows/playwright.yml)
+[![Playwright Tests](https://github.com/amol9patil/playwright-bdd-framework/actions/workflows/playwright.yml/badge.svg)](https://github.com/amol9patil/playwright-bdd-framework/actions/workflows/playwright.yml)
+
 ![Node](https://img.shields.io/badge/node-%3E%3D20-339933)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
