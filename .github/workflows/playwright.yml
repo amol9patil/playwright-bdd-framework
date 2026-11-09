@@ -54,7 +54,7 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps ${{ matrix.browser }}
       # Keeps run history between pipeline runs, so reportingLabs can show trend and flaky tests.
-      - uses: actions/cache@v4
+      - uses: actions/cache@v6
         with:
           path: reporting-labs.history.json
           key: rl-history-${{ matrix.browser }}-${{ github.run_id }}
