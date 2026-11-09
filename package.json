@@ -1,0 +1,71 @@
+{
+  "name": "playwright-bdd-framework",
+  "version": "1.0.0",
+  "description": "Playwright, TypeScript and BDD test automation framework with page objects, fixtures and CI",
+  "keywords": [
+    "playwright",
+    "typescript",
+    "bdd",
+    "cucumber",
+    "test-automation",
+    "page-object-model"
+  ],
+  "private": true,
+  "scripts": {
+    "bddgen": "bddgen",
+    "test": "bddgen && playwright test --project=chromium",
+    "test:all-browsers": "bddgen && playwright test",
+    "test:smoke": "bddgen && playwright test --project=chromium --grep @smoke",
+    "test:regression": "bddgen && playwright test --project=chromium --grep @regression",
+    "test:headed": "bddgen && playwright test --project=chromium --headed",
+    "report": "playwright show-report",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "verify": "npm run typecheck && npm run lint && npm run format:check",
+    "prepare": "husky || true"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Amol Patil",
+    "url": "https://www.linkedin.com/in/amol9patilap"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amol9patil/playwright-bdd-framework.git"
+  },
+  "bugs": {
+    "url": "https://github.com/amol9patil/playwright-bdd-framework/issues"
+  },
+  "homepage": "https://github.com/amol9patil/playwright-bdd-framework#readme",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^26.6.6",
+    "dotenv": "^18.0.9",
+    "eslint": "^10.14.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-playwright": "^2.12.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.0",
+    "playwright-bdd": "^9.2.1",
+    "prettier": "^3.9.10",
+    "reporting-labs": "^0.6.24",
+    "typescript": "6.0",
+    "typescript-eslint": "^8.72.1"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{md,json,yml,yaml,mjs}": [
+      "prettier --write"
+    ]
+  }
+}

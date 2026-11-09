@@ -1,0 +1,83 @@
+name: Playwright BDD Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Weekday nightly run at 02:30 UTC
+    - cron: '30 2 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Optional tag filter, for example @smoke or @P0'
+        required: false
+        default: ''
+
+# A newer push to the same branch cancels the run that is still going.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  # Fast checks first. No point starting three browsers if the code doesn't even compile.
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run verify
+
+  test:
+    needs: quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps ${{ matrix.browser }}
+      # Keeps run history between pipeline runs, so reportingLabs can show trend and flaky tests.
+      - uses: actions/cache@v4
+        with:
+          path: reporting-labs.history.json
+          key: rl-history-${{ matrix.browser }}-${{ github.run_id }}
+          restore-keys: rl-history-${{ matrix.browser }}-
+      - name: Run tests
+        env:
+          TAG_FILTER: ${{ inputs.tag }}
+        run: |
+          npx bddgen
+          if [ -n "$TAG_FILTER" ]; then
+            npx playwright test --project=${{ matrix.browser }} --grep "$TAG_FILTER"
+          else
+            npx playwright test --project=${{ matrix.browser }}
+          fi
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report-${{ matrix.browser }}
+          path: playwright-report/
+          retention-days: 14
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: reporting-labs-report-${{ matrix.browser }}
+          path: reporting-labs/
+          retention-days: 14

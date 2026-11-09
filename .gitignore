@@ -1,0 +1,12 @@
+node_modules/
+.features-gen/
+playwright-report/
+test-results/
+blob-report/
+downloads/
+reporting-labs/
+reporting-labs.history.json
+# Never commit real credentials
+environments/.env.local
+environments/.env.*.local
+.env
