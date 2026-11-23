@@ -54,7 +54,6 @@ fixtures/      Page objects as fixtures, Given/When/Then registrars
 pages/         BasePage and one class per screen
 utils/         env.ts, the only place that reads environment variables
 environments/  .env.demo, .env.qa, .env.example and, locally, a private .env.local
-reporting-labs.config.ts  Report settings (title, project, masking, history)
 docs/          Strategy, architecture, standards, traceability
 .github/       Pipeline, pull request template, Dependabot, code owners
 .husky/        Pre-commit hook (lint-staged)

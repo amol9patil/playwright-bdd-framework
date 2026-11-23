@@ -2,6 +2,10 @@
 
 Notable changes to the framework. Newest first.
 
+## 1.3.3
+
+- Moved the reportingLabs options into `playwright.config.ts`, so the framework has one config file
+
 ## 1.3.2
 
 - Added author links, repository metadata and a report screenshot

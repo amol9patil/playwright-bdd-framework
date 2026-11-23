@@ -67,8 +67,6 @@ docs/          Overview, strategy, architecture, traceability, standards
 .husky/        Pre-commit hook
 ```
 
-In the project root: `playwright.config.ts` and `reporting-labs.config.ts` (report title, project details, masking and history).
-
 ## Running it
 
 You need Node.js 20 or later (`nvm use` picks it up from `.nvmrc`).

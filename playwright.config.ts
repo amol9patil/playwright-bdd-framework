@@ -8,9 +8,10 @@
 
 import path from 'path';
 import dotenv from 'dotenv';
+import 'reporting-labs/auto';
 import { defineConfig, devices } from '@playwright/test';
 import { defineBddConfig } from 'playwright-bdd';
-import reportingLabs from './reporting-labs.config';
+import type { ReportingLabsOptions } from 'reporting-labs';
 
 // Picks environments/.env.<TEST_ENV>. Default is demo, e.g. TEST_ENV=qa npm test
 dotenv.config({
@@ -21,11 +22,23 @@ dotenv.config({
 // bddgen turns the .feature files into specs; this returns the folder they are written to.
 const testDir = defineBddConfig({
   features: 'features/**/*.feature',
-  // Names each example row in the report, using the `case` column of every Examples table.
   examplesTitleFormat: 'Example #<_index_>: <case>',
-  // fixtures/ is listed too so playwright-bdd can find the extended `test` object.
   steps: ['steps/**/*.ts', 'fixtures/**/*.ts'],
 });
+
+// reportingLabs settings: title, project details, header chips, masking and run history.
+const reportingLabs: ReportingLabsOptions = {
+  title: 'Playwright BDD Framework - Execution Report',
+  project: { name: 'SauceDemo Automation', team: 'QA Automation' },
+  metadata: {
+    env: process.env.TEST_ENV ?? 'demo',
+    app: 'SauceDemo',
+  },
+  maskValues: [process.env.APP_PASSWORD ?? 'secret_sauce'],
+  open: 'on-failure',
+  // Trend, "new vs known" failures and flaky detection need history from earlier runs.
+  history: { enabled: true, file: 'reporting-labs.history.json', keep: 30 },
+};
 
 export default defineConfig({
   testDir,
@@ -44,16 +57,13 @@ export default defineConfig({
 
   reporter: [
     ['list'],
-    // For debugging a failure: steps, screenshots, video, traces.
     ['html', { open: 'never' }],
-    // For triage and status: priority, new vs known failures, flaky history, trend.
     // Options live in reporting-labs.config.ts. The report is written to reporting-labs/index.html.
     ['reporting-labs', reportingLabs],
   ],
 
   use: {
     baseURL: process.env.BASE_URL ?? 'https://www.saucedemo.com',
-    // SauceDemo uses data-test, not the default data-testid.
     testIdAttribute: 'data-test',
     headless: true,
     actionTimeout: 15_000,
